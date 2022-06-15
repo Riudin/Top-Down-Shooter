@@ -18,19 +18,22 @@ onready var boss = preload("res://Enemies/FirstBoss.tscn")
 
 
 func _ready():
+	spawn_time -= 0.025 * Global.stage
+	if spawn_time < 0.25: spawn_time = 0.25
 	spawn_timer.set_wait_time(spawn_time)
 	spawn_timer.start()
 	
 	max_enemies += round(pow(1.2, Global.stage))
 	Global.enemies_in_stage = max_enemies
 	if stage_has_boss: Global.enemies_in_stage += 1
+# warning-ignore:return_value_discarded
 	Events.connect("enemy_killed", self, "on_enemy_killed")
 	for i in get_child_count():
 		var spawn_point = get_node_or_null("Spawn" + str(i))
 		spawn_points.append(spawn_point)
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if can_spawn_enemy and enemy_count < max_enemies:
 		enemy_count += 1
 		var n = round(rand_range(0,1))
@@ -50,6 +53,7 @@ func spawn_enemies(enemy_type):
 	#new_enemy.connect("enemy_left_screen", get_parent().get_node("UI"), "update_score")
 	new_enemy.position = spawner.get_global_position()
 	add_child(new_enemy)
+	Events.emit_signal("enemy_spawned")
 	new_enemy.add_to_group("enemies")
 
 
@@ -60,6 +64,7 @@ func spawn_boss():
 		var new_boss = boss.instance()
 		new_boss.position = spawner.get_global_position()
 		add_child(new_boss)
+		Events.emit_signal("enemy_spawned")
 		new_boss.add_to_group("enemies")
 
 

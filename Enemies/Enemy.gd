@@ -2,6 +2,9 @@ extends KinematicBody2D
 class_name Enemy
 
 
+signal camera_shake_requested(amplitude, duration)
+signal frame_freeze_requested
+
 var velocity = Vector2()
 var stun = false
 
@@ -24,6 +27,7 @@ onready var health_bar = get_node("HealthBar")
 onready var sprite = get_node("Polygon2D")
 onready var movement_path = get_node("Line2D")
 onready var soft_collision = get_node("SoftCollision")
+onready var camera = Global.player.get_node("Camera2D")
 #onready var pathfinding_timer = get_node("PathfindingTimer")
 
 
@@ -45,14 +49,14 @@ func _ready():
 		player = tree.get_nodes_in_group("Player")[0]
 
 
-func _process(delta):
+func _process(_delta):
 	movement_path.global_position = Vector2.ZERO
 	move()
 	
 	health_bar.set_position(position - Vector2(8, 12))
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if player and level_navigation:
 		generate_path()
 		navigate()
@@ -93,19 +97,21 @@ func move():
 
 
 func apply_damage(dmg):
+	emit_signal("frame_freeze_requested")
 	health -= dmg
 	health_bar.visible = true
 	health_bar.value = health
 	if stun == false:
-		stun(0.1)
+		apply_stun(0.1)
 	if health <= 0:
 		on_destroy()
 
 
-func stun(time):
+func apply_stun(time):
 	velocity = - velocity * 4
 	sprite.color = Color.white
 	stun = true
+	$StunTimer.set_wait_time(time)
 	$StunTimer.start()
 
 
@@ -115,13 +121,20 @@ func _on_StunTimer_timeout():
 
 
 func on_destroy():
-	if enemy_type == "normal": Events.emit_signal("enemy_killed", score)
-	if enemy_type == "boss": Events.emit_signal("boss_killed", score)
+	if enemy_type == "normal":
+		Events.emit_signal("enemy_killed", score)
+		emit_signal("camera_shake_requested", 3, 0.2)
+		emit_signal("frame_freeze_requested")
+	if enemy_type == "boss":
+		Events.emit_signal("boss_killed", score)
+		emit_signal("camera_shake_requested", 6, 0.8)
+		emit_signal("frame_freeze_requested")
 	
 	if get_parent() != null:
 		var new_blood_particles = blood_particles.instance()
 		new_blood_particles.position = position
 		new_blood_particles.rotation = velocity.angle()
+		new_blood_particles.modulate = Color.from_hsv(enemy_color.h, 0.6, enemy_color.v)
 		get_parent().add_child(new_blood_particles)
 	queue_free()
 

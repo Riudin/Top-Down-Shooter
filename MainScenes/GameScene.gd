@@ -11,7 +11,9 @@ var playtime = 0 setget set_playtime, get_playtime
 
 
 func _ready():
+# warning-ignore:return_value_discarded
 	Events.connect("player_died", self, "game_over")
+# warning-ignore:return_value_discarded
 	Events.connect("boss_killed", self, "on_victory")
 	
 	time_start = OS.get_unix_time()

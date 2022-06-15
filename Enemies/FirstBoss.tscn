@@ -7,7 +7,7 @@
 [sub_resource type="CapsuleShape2D" id=1]
 height = 8.0
 
-[node name="FirstBoss" type="KinematicBody2D"]
+[node name="FirstBoss" type="KinematicBody2D" groups=["camera_shaker", "frame_freezer"]]
 collision_layer = 2
 collision_mask = 12
 script = ExtResource( 1 )

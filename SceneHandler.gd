@@ -1,14 +1,19 @@
 extends Node
 
 
-signal all_scenes_deleted
+#signal all_scenes_deleted
 
 
 func _ready():
+# warning-ignore:return_value_discarded
 	Events.connect("game_restarted", self, "start_game")
+# warning-ignore:return_value_discarded
 	Events.connect("game_ended", self, "show_main_menu")
+# warning-ignore:return_value_discarded
 	Events.connect("main_menu_new_game_pressed", self, "start_game")
+# warning-ignore:return_value_discarded
 	Events.connect("main_menu_settings_pressed", self, "show_settings")
+# warning-ignore:return_value_discarded
 	Events.connect("main_menu_about_pressed", self, "show_about")
 	show_main_menu()
 

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Gun.gd" type="Script" id=2]
 [ext_resource path="res://lighting.png" type="Texture" id=3]
 [ext_resource path="res://Enemies/Assets/hp_bar.png" type="Texture" id=4]
+[ext_resource path="res://Player/ShakingCamera.gd" type="Script" id=5]
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 8
@@ -45,6 +46,10 @@ script = ExtResource( 2 )
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 smoothing_enabled = true
+script = ExtResource( 5 )
+
+[node name="Timer" type="Timer" parent="Camera2D"]
+one_shot = true
 
 [node name="Light2D" type="Light2D" parent="."]
 visible = false

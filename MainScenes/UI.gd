@@ -9,7 +9,9 @@ onready var enemy_counter = get_node("TopRow/H/EnemyCounter")
 func _ready():
 	#Global.update_score(0)
 	update_ui(0)
+# warning-ignore:return_value_discarded
 	Events.connect("enemy_killed", self, "update_ui")
+# warning-ignore:return_value_discarded
 	Events.connect("boss_killed", self, "update_ui")
 
 
