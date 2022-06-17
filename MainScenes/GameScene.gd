@@ -11,12 +11,17 @@ var playtime = 0 setget set_playtime, get_playtime
 
 
 func _ready():
+	randomize()
 # warning-ignore:return_value_discarded
 	Events.connect("player_died", self, "game_over")
 # warning-ignore:return_value_discarded
 	Events.connect("boss_killed", self, "on_victory")
 	
 	time_start = OS.get_unix_time()
+	
+	var _arg1
+	var _arg2
+	Events.emit_signal("gamescene_ready", _arg1, _arg2)
 
 
 func on_victory(_x):
@@ -36,7 +41,8 @@ func game_over():
 	var new_game_over_screen = game_over_screen.instance()
 	
 	yield(get_tree().create_timer(1), "timeout")
-	add_child(new_game_over_screen)
+	call_deferred("add_child", new_game_over_screen)
+	#add_child(new_game_over_screen)
 
 
 func add_time_score():

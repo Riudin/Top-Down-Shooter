@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://SupportScenes/Gun.gd" type="Script" id=1]
+
+[node name="Gun" type="Node2D" groups=["camera_shaker", "frame_freezer"]]
+script = ExtResource( 1 )
+screenshake_amplitude = 0.0
+screenshake_duration = 0.0
+
+[node name="AimPosition" type="Position2D" parent="."]
+position = Vector2( 1, 0 )

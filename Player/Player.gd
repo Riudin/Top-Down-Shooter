@@ -1,6 +1,11 @@
 extends KinematicBody2D
 
 
+# warning-ignore:unused_signal
+signal camera_shake_requested(amplitude, duration)
+# warning-ignore:unused_signal
+signal frame_freeze_requested
+
 const ACCELERATION = 4000
 const FRICTION = 4000
 
@@ -10,7 +15,7 @@ var max_speed = 250
 
 var is_alive = true
 
-var bullet = preload("res://Player/Projectiles/Bullet.tscn")
+#var bullet = preload("res://Player/Projectiles/Bullet.tscn")
 onready var health_bar = get_node("HealthBar")
 
 var velocity = Vector2.ZERO
@@ -69,3 +74,7 @@ func on_death():
 	Events.emit_signal("player_died")
 	#play death animation
 	#queue_free()
+
+
+func get_class(): return "Player" # used for collision detection
+func is_class(name): return name == "Player" or .is_class(name)

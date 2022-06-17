@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://MainScenes/UI.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://Levels/Level1.tscn" type="PackedScene" id=4]
 [ext_resource path="res://UI/Assets/Fonts/KdamThmor_10.tres" type="DynamicFont" id=5]
 [ext_resource path="res://AutoLoad/FrameFreezer.gd" type="Script" id=6]
+[ext_resource path="res://Enemies/Assets/hp_bar.png" type="Texture" id=7]
+[ext_resource path="res://UI/Assets/Fonts/KdamThmor_20.tres" type="DynamicFont" id=8]
+[ext_resource path="res://UI/Assets/Fonts/KdamThmor_8.tres" type="DynamicFont" id=9]
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource( 3 )
@@ -13,52 +16,102 @@ script = ExtResource( 3 )
 [node name="Level1" parent="." instance=ExtResource( 4 )]
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource( 2 )]
-position = Vector2( 438, 184 )
+position = Vector2( 320, 180 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 1 )
 
-[node name="TopRow" type="MarginContainer" parent="UI"]
+[node name="V" type="VBoxContainer" parent="UI"]
 anchor_right = 1.0
 margin_bottom = 30.0
+custom_constants/separation = 0
+
+[node name="TopRow" type="MarginContainer" parent="UI/V"]
+margin_right = 640.0
+margin_bottom = 20.0
 custom_constants/margin_right = 10
 custom_constants/margin_left = 10
 
-[node name="H" type="HBoxContainer" parent="UI/TopRow"]
+[node name="H" type="HBoxContainer" parent="UI/V/TopRow"]
 margin_left = 10.0
 margin_right = 630.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 0, 30 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Stage" type="Label" parent="UI/TopRow/H"]
-margin_top = 7.0
+[node name="Stage" type="Label" parent="UI/V/TopRow/H"]
+margin_top = 2.0
 margin_right = 47.0
-margin_bottom = 23.0
+margin_bottom = 18.0
 custom_fonts/font = ExtResource( 5 )
 text = "Stage: n/a"
 align = 1
 valign = 1
 
-[node name="Score" type="Label" parent="UI/TopRow/H"]
+[node name="Score" type="Label" parent="UI/V/TopRow/H"]
 margin_left = 51.0
-margin_top = 7.0
+margin_top = 2.0
 margin_right = 538.0
-margin_bottom = 23.0
+margin_bottom = 18.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 5 )
 text = "Score: n/a"
 align = 1
 valign = 1
 
-[node name="EnemyCounter" type="Label" parent="UI/TopRow/H"]
+[node name="EnemyCounter" type="Label" parent="UI/V/TopRow/H"]
 margin_left = 542.0
-margin_top = 7.0
+margin_top = 2.0
 margin_right = 620.0
-margin_bottom = 23.0
+margin_bottom = 18.0
 custom_fonts/font = ExtResource( 5 )
 text = "Enemies left: n/a"
+align = 1
+valign = 1
+
+[node name="BossRow" type="MarginContainer" parent="UI/V"]
+margin_top = 20.0
+margin_right = 640.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 0, 15 )
+size_flags_horizontal = 3
+custom_constants/margin_right = 20
+custom_constants/margin_left = 20
+
+[node name="H" type="HBoxContainer" parent="UI/V/BossRow"]
+margin_left = 20.0
+margin_right = 620.0
+margin_bottom = 31.0
+
+[node name="BossName" type="Label" parent="UI/V/BossRow/H"]
+margin_right = 50.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 8 )
+text = "Boss:"
+align = 1
+valign = 1
+
+[node name="BossHP" type="TextureProgress" parent="UI/V/BossRow/H"]
+margin_left = 127.0
+margin_top = 8.0
+margin_right = 527.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 400, 15 )
+size_flags_horizontal = 6
+size_flags_vertical = 4
+value = 100.0
+texture_under = ExtResource( 7 )
+texture_progress = ExtResource( 7 )
+tint_under = Color( 0, 0, 0, 0.25098 )
+tint_progress = Color( 0.556863, 0.027451, 0.027451, 0.745098 )
+nine_patch_stretch = true
+
+[node name="Label" type="Label" parent="UI/V/BossRow/H/BossHP"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 9 )
+text = "12/35"
 align = 1
 valign = 1
 

@@ -5,6 +5,10 @@ extends Node
 # warning-ignore:unused_signal
 signal enemy_spawned
 # warning-ignore:unused_signal
+signal boss_spawned()
+# warning-ignore:unused_signal
+signal boss_damaged(damage)
+# warning-ignore:unused_signal
 signal enemy_killed(score)
 # warning-ignore:unused_signal
 signal boss_killed(score)
@@ -12,6 +16,8 @@ signal boss_killed(score)
 signal player_died
 
 ### UI Signals
+# warning-ignore:unused_signal
+signal gamescene_ready
 # warning-ignore:unused_signal
 signal game_restarted
 # warning-ignore:unused_signal

@@ -5,6 +5,7 @@ extends Node
 
 
 func _ready():
+	Global.load_game()
 # warning-ignore:return_value_discarded
 	Events.connect("game_restarted", self, "start_game")
 # warning-ignore:return_value_discarded
@@ -48,6 +49,7 @@ func show_main_menu():
 	yield(get_tree().create_timer(0.1), "timeout")
 	var main_menu_scene = load("res://UI/MainMenu.tscn").instance()
 	add_child(main_menu_scene)
+	Global.save_game()
 	main_menu_scene.add_to_group("active_scenes")
 	reset_progress()
 

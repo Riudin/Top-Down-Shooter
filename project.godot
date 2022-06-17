@@ -23,6 +23,7 @@ _global_script_class_icons={
 config/name="Top Down Shooter"
 run/main_scene="res://SceneHandler.tscn"
 config/icon="res://icon.png"
+config/version="0.0.1"
 
 [autoload]
 
@@ -105,6 +106,7 @@ LMB={
 2d_physics/layer_3="Projectile"
 2d_physics/layer_4="Environment"
 2d_physics/layer_5="SoftCollisions"
+2d_physics/layer_6="PlayerHurtbox"
 
 [physics]
 

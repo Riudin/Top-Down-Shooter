@@ -1,8 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Enemies/DefaultEnemy.gd" type="Script" id=1]
+[ext_resource path="res://Enemies/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://Enemies/Assets/hp_bar.png" type="Texture" id=2]
 [ext_resource path="res://SupportScenes/SoftCollision.tscn" type="PackedScene" id=3]
+
+[sub_resource type="CircleShape2D" id=2]
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 8.0
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 5.0
@@ -10,24 +15,21 @@ height = 4.0
 
 [node name="DefaultEnemy" type="KinematicBody2D" groups=["camera_shaker", "frame_freezer"]]
 collision_layer = 2
-collision_mask = 12
+collision_mask = 8
 script = ExtResource( 1 )
-speed = 100
 
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-visible = false
-polygon = PoolVector2Array( -8, -8, 8, 0, -8, 8 )
+[node name="Sprite" type="Sprite" parent="."]
+rotation = -1.5708
+scale = Vector2( 0.25, 0.25 )
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color( 0.976471, 0.0745098, 0.243137, 1 )
-polygon = PoolVector2Array( -8, -8, 8, 0, -8, 8, -4, 0 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
 
 [node name="Hitbox" type="Area2D" parent="."]
-visible = false
 collision_layer = 2
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
-polygon = PoolVector2Array( -8, -9, 10, 0, -8, 9 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource( 3 )
 
 [node name="HealthBar" type="TextureProgress" parent="."]
 visible = false

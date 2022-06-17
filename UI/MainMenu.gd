@@ -11,10 +11,6 @@ onready var highscore_display = get_node("M/H/V/Highscore")
 func _ready():
 	update_highscore()
 	highscore_display.text = "Highscore:\n" + str(Global.highscore)
-#	new_game_button.connect("pressed", self, "_on_NewGame_pressed")
-#	settings_button.connect("pressed", self, "_on_Settings_pressed")
-#	about_button.connect("pressed", self, "_on_About_pressed")
-#	quit_button.connect("pressed", self, "_on_Quit_pressed")
 
 
 func update_highscore():
