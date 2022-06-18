@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://MainScenes/UI.gd" type="Script" id=1]
+[ext_resource path="res://Mobile/MobileJoystick.tscn" type="PackedScene" id=2]
 [ext_resource path="res://MainScenes/GameScene.gd" type="Script" id=3]
 [ext_resource path="res://UI/Assets/Fonts/KdamThmor_10.tres" type="DynamicFont" id=5]
 [ext_resource path="res://AutoLoad/FrameFreezer.gd" type="Script" id=6]
@@ -111,6 +112,8 @@ custom_fonts/font = ExtResource( 9 )
 text = "12/35"
 align = 1
 valign = 1
+
+[node name="MobileJoystick" parent="UI" instance=ExtResource( 2 )]
 
 [node name="FrameFreezer" type="Node" parent="."]
 script = ExtResource( 6 )

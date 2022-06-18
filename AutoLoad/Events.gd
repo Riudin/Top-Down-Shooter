@@ -17,6 +17,10 @@ signal player_died
 
 ### UI Signals
 # warning-ignore:unused_signal
+signal movestick_moved   # for mobile controls
+# warning-ignore:unused_signal
+signal attackstick_moved   # for mobile controls
+# warning-ignore:unused_signal
 signal gamescene_ready
 # warning-ignore:unused_signal
 signal game_restarted
