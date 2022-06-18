@@ -6,9 +6,9 @@
 [ext_resource path="res://Enemies/Assets/hp_bar.png" type="Texture" id=4]
 [ext_resource path="res://SupportScenes/ShakingCamera.gd" type="Script" id=5]
 [ext_resource path="res://Player/Assets/playerShip1_blue.png" type="Texture" id=6]
-[ext_resource path="res://SupportScenes/Projectiles/PlayerProjectile.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Projectiles/PlayerProjectile.tscn" type="PackedScene" id=7]
 
-[node name="Player" type="KinematicBody2D" groups=["camera_shaker", "frame_freezer"]]
+[node name="Player" type="KinematicBody2D" groups=["Player", "camera_shaker", "frame_freezer"]]
 collision_mask = 8
 script = ExtResource( 1 )
 
@@ -34,7 +34,7 @@ polygon = PoolVector2Array( -5, -9, -1, -9, 3, -2, 8, -1, 8, 1, 3, 2, -1, 9, -5,
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 32
-collision_mask = 0
+collision_mask = 2
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Hurtbox"]
 polygon = PoolVector2Array( -5, -8, -1, -8, 2, -2, 6, -1, 6, 1, 2, 2, -1, 8, -5, 8, -6, 2, -8, 0, -6, -2 )

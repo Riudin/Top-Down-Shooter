@@ -58,28 +58,18 @@ margin_top = 92.0
 margin_right = 320.0
 margin_bottom = 92.0
 
-[node name="RestartButton" type="Button" parent="MarginContainer/ColorRect/V"]
-margin_left = 133.0
-margin_top = 112.0
-margin_right = 187.0
-margin_bottom = 134.0
-size_flags_horizontal = 6
-custom_fonts/font = ExtResource( 2 )
-text = "Try again"
-
 [node name="BackButton" type="Button" parent="MarginContainer/ColorRect/V"]
 margin_left = 143.0
-margin_top = 154.0
+margin_top = 112.0
 margin_right = 177.0
-margin_bottom = 176.0
+margin_bottom = 134.0
 size_flags_horizontal = 6
 custom_fonts/font = ExtResource( 2 )
 text = "Back"
 
 [node name="Control2" type="Control" parent="MarginContainer/ColorRect/V"]
-margin_top = 196.0
+margin_top = 154.0
 margin_right = 320.0
-margin_bottom = 196.0
+margin_bottom = 154.0
 
-[connection signal="pressed" from="MarginContainer/ColorRect/V/RestartButton" to="." method="_on_RestartButton_pressed"]
 [connection signal="pressed" from="MarginContainer/ColorRect/V/BackButton" to="." method="_on_BackButton_pressed"]

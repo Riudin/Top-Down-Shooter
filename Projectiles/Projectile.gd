@@ -1,13 +1,14 @@
 extends Area2D
 
 
+export(String) var projectile_type := "hostile"
+
 var projectile_speed
 var projectile_direction := Vector2.ZERO
 var damage
-var projectile_type
 var projectile_range
 
-var ticks = 0
+var _ticks = 0
 
 
 func _ready():
@@ -18,8 +19,8 @@ func _ready():
 
 
 func _physics_process(delta):
-	ticks += 1
-	if ticks > projectile_range: destroy()
+	_ticks += 1
+	if _ticks > projectile_range: destroy()
 	else: global_position += projectile_speed * projectile_direction * delta
 
 

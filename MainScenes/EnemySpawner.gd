@@ -57,7 +57,7 @@ func spawn_enemies(enemy_type):
 	#new_enemy.connect("enemy_left_screen", get_parent().get_node("UI"), "update_score")
 	new_enemy.position = spawner.get_global_position()
 	add_child(new_enemy)
-	Events.emit_signal("enemy_spawned", new_enemy.boss_name, new_enemy.health) # those arguments are only there to avoid errors when args are expected
+#	Events.emit_signal("enemy_spawned", new_enemy.boss_name, new_enemy.health) # those arguments are only there to avoid errors when args are expected
 	new_enemy.add_to_group("enemies")
 
 
@@ -69,7 +69,8 @@ func spawn_boss():
 		new_boss.position = spawner.get_global_position()
 		call_deferred("add_child", new_boss)
 		#add_child(new_boss)
-		Events.emit_signal("boss_spawned", new_boss.boss_name, new_boss.health)
+#		Events.call_deferred("emit_signal", "boss_spawned", new_boss.boss_name, new_boss.health)
+		#Events.emit_signal("boss_spawned", new_boss.boss_name, new_boss.health)
 		new_boss.add_to_group("enemies")
 
 

@@ -9,9 +9,9 @@ signal frame_freeze_requested
 const ACCELERATION = 4000
 const FRICTION = 4000
 
-var max_health: int = 20
-var health: int = 20
-var max_speed = 250
+export var max_health: int = 4
+export var health: int = 4
+export var max_speed := 250
 
 var is_alive = true
 
@@ -24,7 +24,7 @@ var velocity = Vector2.ZERO
 func _ready():
 	Global.player = self
 	health_bar.max_value = max_health
-	health_bar.value = health
+	health_bar.value = max_health
 	health_bar.set_as_toplevel(true)
 
 
@@ -51,12 +51,14 @@ func _process(delta):
 	
 	if Input.is_action_pressed("LMB") and is_alive:
 		var gun1 = get_node_or_null("Gun1")
-		if gun1: gun1.fire(self)
+		if gun1: gun1.fire()
 
 
 func _on_Hurtbox_body_entered(body):
+	print("explode")
 	if body.is_in_group("enemies"):
 		apply_damage(body.damage)
+		body.explode()
 
 
 func apply_damage(amount):

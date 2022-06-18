@@ -3,31 +3,37 @@
 [ext_resource path="res://Enemies/DefaultBoss.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Enemies/Assets/spaceShips_008.png" type="Texture" id=2]
 [ext_resource path="res://SupportScenes/Gun.tscn" type="PackedScene" id=3]
-[ext_resource path="res://SupportScenes/Projectiles/GreenLaserShort.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Projectiles/GreenLaserShort.tscn" type="PackedScene" id=4]
 
 [node name="Ragadaz" instance=ExtResource( 1 )]
-health = 100
 speed = 25
-damage = 10
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )
 
 [node name="Gun1" parent="." index="2" instance=ExtResource( 3 )]
 cooldown = 0
-projectile_range = 200
+p_range = 400
 speed = 100
 damage = 10
-gun_type = "hostile"
 bullet = ExtResource( 4 )
 
 [node name="Gun2" parent="." index="3" instance=ExtResource( 3 )]
 position = Vector2( 23, 0 )
 cooldown = 0
-projectile_range = 200
+p_range = 400
 speed = 100
 damage = 10
-gun_type = "hostile"
 bullet = ExtResource( 4 )
+
+[node name="Gun1CooldownTimer" type="Timer" parent="." index="4"]
+autostart = true
+
+[node name="Gun2CooldownTimer" type="Timer" parent="." index="5"]
+wait_time = 6.0
+autostart = true
+
+[connection signal="timeout" from="Gun1CooldownTimer" to="." method="_on_Gun1CooldownTimer_timeout"]
+[connection signal="timeout" from="Gun2CooldownTimer" to="." method="_on_Gun2CooldownTimer_timeout"]
 
 [editable path="SoftCollision"]

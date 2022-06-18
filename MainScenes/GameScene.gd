@@ -1,13 +1,16 @@
 extends Node2D
 
 
-onready var player = get_node("Player")
+onready var player = load("res://Player/Player.tscn")
 onready var game_over_screen = load("res://UI/GameOverScreen.tscn")
 onready var victory_screen = load("res://UI/VictoryScreen.tscn")
+onready var level_manager = get_node("LevelManager")
+
+var player_spawn_point := Vector2.ZERO
 
 var time_start = 0
 var time_now = 0
-var playtime = 0 setget set_playtime, get_playtime
+var playtime = 0 setget , get_playtime
 
 
 func _ready():
@@ -17,11 +20,36 @@ func _ready():
 # warning-ignore:return_value_discarded
 	Events.connect("boss_killed", self, "on_victory")
 	
+	initiate_level()
+	initiate_player()
+	
+	
 	time_start = OS.get_unix_time()
 	
 	var _arg1
 	var _arg2
 	Events.emit_signal("gamescene_ready", _arg1, _arg2)
+
+
+func initiate_level():
+	level_manager.create_level_array()
+	level_manager.select_level()
+	level_manager.instance_level()
+
+
+func initiate_player():
+	var new_player = player.instance()
+	new_player.position = level_manager.player_spawn_position
+	call_deferred("add_child", new_player)
+
+
+func game_over():
+	time_now = OS.get_unix_time()
+	playtime = time_now - time_start
+	var new_game_over_screen = game_over_screen.instance()
+	
+	yield(get_tree().create_timer(1), "timeout")
+	call_deferred("add_child", new_game_over_screen)
 
 
 func on_victory(_x):
@@ -35,16 +63,6 @@ func on_victory(_x):
 	add_child(new_victory_screen)
 
 
-func game_over():
-	time_now = OS.get_unix_time()
-	playtime = time_now - time_start
-	var new_game_over_screen = game_over_screen.instance()
-	
-	yield(get_tree().create_timer(1), "timeout")
-	call_deferred("add_child", new_game_over_screen)
-	#add_child(new_game_over_screen)
-
-
 func add_time_score():
 	var time_score = 0
 	time_score = -0.05 * pow(playtime, 1.5) + 100 + Global.stage * 8
@@ -53,10 +71,6 @@ func add_time_score():
 	else:
 		time_score = round(time_score)
 	Global.score += time_score
-
-
-func set_playtime(time):
-	playtime = time
 
 
 func get_playtime():

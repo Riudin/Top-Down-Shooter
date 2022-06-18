@@ -35,6 +35,7 @@ func update_ui(_score):
 
 
 func show_boss_row(boss_name, boss_hp):
+	print(boss_hp)
 	boss_max_hp = boss_hp
 	boss_current_hp = boss_hp
 	

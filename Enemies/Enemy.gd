@@ -54,6 +54,11 @@ func _ready():
 		level_navigation = tree.get_nodes_in_group("Navigation")[0]
 	if tree.has_group("Player"):
 		player = tree.get_nodes_in_group("Player")[0]
+	
+	if enemy_type == "boss":
+		Events.call_deferred("emit_signal", "boss_spawned", boss_name, health)
+	elif enemy_type == "normal":
+		Events.emit_signal("enemy_spawned", boss_name, health)
 
 
 func _process(_delta):
@@ -74,20 +79,16 @@ func _physics_process(_delta):
 
 func get_weapons():
 	gun1 = get_node_or_null("Gun1")
-	if gun1 == null: gun1 = get_node_or_null("GunPivot/Gun1")
 	gun2 = get_node_or_null("Gun2")
-	if gun2 == null: gun2 = get_node_or_null("GunPivot/Gun2")
 	gun3 = get_node_or_null("Gun3")
-	if gun3 == null: gun3 = get_node_or_null("GunPivot/Gun3")
 	gun4 = get_node_or_null("Gun4")
-	if gun4 == null: gun4 = get_node_or_null("GunPivot/Gun4")
 
 
 func shoot_normally():
-	if gun1: gun1.fire(self)
-	if gun2: gun2.fire(self)
-	if gun3: gun3.fire(self)
-	if gun4: gun4.fire(self)
+	if gun1: gun1.fire()
+	if gun2: gun2.fire()
+	if gun3: gun3.fire()
+	if gun4: gun4.fire()
 
 
 func shoot_circle(shots, gun):
@@ -96,7 +97,7 @@ func shoot_circle(shots, gun):
 	if gun == null: return
 	for n in shots:
 		#yield(get_tree(), "idle_frame")
-		gun.fire(self)
+		gun.fire()
 		gun.rotation_degrees += rot_value
 
 
@@ -118,7 +119,7 @@ func shoot_wave(shots, gun):
 		elif rot_dir == 1:
 			gun.rotation_degrees -= rot_value
 		
-		gun.fire(self)
+		gun.fire()
 
 
 func navigate():
@@ -183,10 +184,16 @@ func _on_StunTimer_timeout():
 	stun = false
 
 
+func explode():
+	if enemy_type == "normal":
+		Events.emit_signal("enemy_killed", 0)
+		self.queue_free()
+
+
 func on_destroy():
-	var owned_projectiles = get_tree().get_nodes_in_group("Projectile_" + str(self))
-	for p in owned_projectiles:
-		p.queue_free()
+#	var owned_projectiles = get_tree().get_nodes_in_group("Projectile_" + str(self))
+#	for p in owned_projectiles:
+#		p.queue_free()
 	
 	if enemy_type == "normal":
 		Events.emit_signal("enemy_killed", score)

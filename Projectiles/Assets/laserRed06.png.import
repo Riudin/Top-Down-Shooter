@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/laserGreen12.png-c6985e61621251f31552f9de4b84938b.stex"
+path="res://.import/laserRed06.png-f1ca640cbf6e4753c8b0217770c7467f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SupportScenes/Projectiles/Assets/laserGreen12.png"
-dest_files=[ "res://.import/laserGreen12.png-c6985e61621251f31552f9de4b84938b.stex" ]
+source_file="res://Projectiles/Assets/laserRed06.png"
+dest_files=[ "res://.import/laserRed06.png-f1ca640cbf6e4753c8b0217770c7467f.stex" ]
 
 [params]
 

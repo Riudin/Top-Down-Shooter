@@ -11,12 +11,6 @@ func _ready():
 	score_display.text = "Score: " + str(Global.score)
 
 
-func _on_RestartButton_pressed():
-	get_tree().paused = false
-	Events.emit_signal("game_restarted")
-	queue_free()
-
-
 func _on_BackButton_pressed():
 	get_tree().paused = false
 	Events.emit_signal("game_ended")

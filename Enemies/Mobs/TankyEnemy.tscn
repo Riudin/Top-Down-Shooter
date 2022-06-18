@@ -4,6 +4,7 @@
 [ext_resource path="res://Enemies/Assets/enemyBlack4.png" type="Texture" id=2]
 
 [node name="TankyEnemy" instance=ExtResource( 1 )]
+damage = 1
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )
