@@ -6,7 +6,12 @@ extends Node
 
 func _ready():
 	Global.load_game()
-# warning-ignore:return_value_discarded
+	connect_events()
+	show_main_menu()
+
+
+func connect_events():
+	# warning-ignore:return_value_discarded
 	Events.connect("game_restarted", self, "start_game")
 # warning-ignore:return_value_discarded
 	Events.connect("game_ended", self, "show_main_menu")
@@ -16,7 +21,8 @@ func _ready():
 	Events.connect("main_menu_settings_pressed", self, "show_settings")
 # warning-ignore:return_value_discarded
 	Events.connect("main_menu_about_pressed", self, "show_about")
-	show_main_menu()
+# warning-ignore:return_value_discarded
+	Events.connect("settings_menu_back_pressed", self, "show_main_menu")
 
 
 func delete_active_scenes():
@@ -55,7 +61,10 @@ func show_main_menu():
 
 
 func show_settings():
-	pass
+	delete_active_scenes()
+	var settings_scene = load("res://UI/SettingsMenu.tscn").instance()
+	add_child(settings_scene)
+	settings_scene.add_to_group("active_scenes")
 
 
 func show_about():

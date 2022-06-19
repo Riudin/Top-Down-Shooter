@@ -32,3 +32,5 @@ signal main_menu_new_game_pressed
 signal main_menu_settings_pressed
 # warning-ignore:unused_signal
 signal main_menu_about_pressed
+# warning-ignore:unused_signal
+signal settings_menu_back_pressed
