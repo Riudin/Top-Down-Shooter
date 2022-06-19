@@ -11,17 +11,17 @@ func _ready():
 
 
 func connect_events():
-	# warning-ignore:return_value_discarded
+	
 	Events.connect("game_restarted", self, "start_game")
-# warning-ignore:return_value_discarded
+
 	Events.connect("game_ended", self, "show_main_menu")
-# warning-ignore:return_value_discarded
+
 	Events.connect("main_menu_new_game_pressed", self, "start_game")
-# warning-ignore:return_value_discarded
+
 	Events.connect("main_menu_settings_pressed", self, "show_settings")
-# warning-ignore:return_value_discarded
+
 	Events.connect("main_menu_about_pressed", self, "show_about")
-# warning-ignore:return_value_discarded
+
 	Events.connect("settings_menu_back_pressed", self, "show_main_menu")
 
 

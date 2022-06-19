@@ -39,9 +39,7 @@ func _input(event):
 
 func get_value():
 	if get_button_pos().length() > threshhold:
-		return get_button_pos().normalized() 
-		# normalized makes it so you always get the same value wether you pull the joystick fully or just a bit.
-		# if we want that to be different values, we should instead divide by the radius of the background to get a force value between 0 and 1.
+		return get_button_pos() / boundary # instead of / boundary we could use .normalized() to always go full speed
 	return Vector2.ZERO
 	
 	

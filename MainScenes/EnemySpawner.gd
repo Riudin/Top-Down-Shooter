@@ -28,7 +28,7 @@ func _ready():
 	max_enemies = round(pow(1.5, Global.stage))
 	Global.enemies_in_stage = max_enemies
 	if stage_has_boss: Global.enemies_in_stage += 1
-# warning-ignore:return_value_discarded
+
 	Events.connect("enemy_killed", self, "on_enemy_killed")
 	for i in get_child_count():
 		var spawn_point = get_node_or_null("Spawn" + str(i))

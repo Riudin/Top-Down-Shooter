@@ -12,9 +12,9 @@ var _ticks = 0
 
 
 func _ready():
-# warning-ignore:return_value_discarded
+
 	self.connect("area_entered", self, "_on_impact")
-# warning-ignore:return_value_discarded
+
 	self.connect("body_entered", self, "_on_impact")
 
 

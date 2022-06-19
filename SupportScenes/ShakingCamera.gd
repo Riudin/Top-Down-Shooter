@@ -12,11 +12,11 @@ func _ready():
 	randomize()
 	set_process(false)
 	self.duration = duration
-# warning-ignore:return_value_discarded
+
 	Events.connect("gamescene_ready", self, "connect_to_shakers")
-# warning-ignore:return_value_discarded
+
 	Events.connect("enemy_spawned", self, "connect_to_shakers")
-# warning-ignore:return_value_discarded
+
 	Events.connect("boss_spawned", self, "connect_to_shakers")
 	#connect_to_shakers()
 

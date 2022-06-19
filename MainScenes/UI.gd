@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 
+onready var health_display = get_node("V/TopRow/H/Health")
 onready var score_display = get_node("V/TopRow/H/Score")
 onready var stage_display = get_node("V/TopRow/H/Stage")
 onready var enemy_counter = get_node("V/TopRow/H/EnemyCounter")
@@ -18,27 +19,24 @@ func _ready():
 	boss_row.visible = false
 	#Global.update_score(0)
 	update_ui(0)
-# warning-ignore:return_value_discarded
+	health_display.text = "Health: " + str(Global.player_health)
+	Events.connect("player_health_changed", self, "update_ui")
 	Events.connect("enemy_killed", self, "update_ui")
-# warning-ignore:return_value_discarded
 	Events.connect("boss_killed", self, "update_ui")
-# warning-ignore:return_value_discarded
 	Events.connect("boss_spawned", self, "show_boss_row")
-# warning-ignore:return_value_discarded
 	Events.connect("boss_damaged", self, "on_boss_damaged")
 
 
 func update_ui(_score):
+	health_display.text = "Health: " + str(Global.player_health)
 	score_display.text = "Score: " + str(Global.score)
 	stage_display.text = "Stage: " + str(Global.stage)
 	enemy_counter.text = "Enemies left: " + str(Global.enemies_in_stage)
 
 
 func show_boss_row(boss_name, boss_hp):
-	print(boss_hp)
 	boss_max_hp = boss_hp
 	boss_current_hp = boss_hp
-	
 	boss_row.visible = true
 	boss_name_label.text = boss_name + ":"
 	boss_hp_bar.max_value = boss_hp

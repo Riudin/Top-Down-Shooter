@@ -2,7 +2,7 @@ extends Node2D
 
 
 signal camera_shake_requested(amplitude, duration)
-# warning-ignore:unused_signal
+
 signal frame_freeze_requested
 
 export(float) var screenshake_amplitude = 1.0

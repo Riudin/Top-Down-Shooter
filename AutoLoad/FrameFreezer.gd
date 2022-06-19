@@ -6,11 +6,11 @@ export var delay_mseconds := 15
 
 func _ready():
 	#connect_frame_freezers()
-# warning-ignore:return_value_discarded
+
 	Events.connect("gamescene_ready", self, "connect_frame_freezers")
-# warning-ignore:return_value_discarded
+
 	Events.connect("enemy_spawned", self, "connect_frame_freezers")
-# warning-ignore:return_value_discarded
+
 	Events.connect("boss_spawned", self, "connect_frame_freezers")
 
 

@@ -15,7 +15,6 @@ texture = ExtResource( 2 )
 cooldown = 0
 p_range = 400
 speed = 100
-damage = 10
 bullet = ExtResource( 4 )
 
 [node name="Gun2" parent="." index="3" instance=ExtResource( 3 )]
@@ -23,7 +22,6 @@ position = Vector2( 23, 0 )
 cooldown = 0
 p_range = 400
 speed = 100
-damage = 10
 bullet = ExtResource( 4 )
 
 [node name="Gun1CooldownTimer" type="Timer" parent="." index="4"]

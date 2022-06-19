@@ -1,24 +1,27 @@
 extends KinematicBody2D
 
 
-# warning-ignore:unused_signal
+
 signal camera_shake_requested(amplitude, duration)
-# warning-ignore:unused_signal
+
 signal frame_freeze_requested
 
 const ACCELERATION = 4000
 const FRICTION = 4000
 
-export var max_health: int = 4
-export var health: int = 4
+export var health := 4
 export var max_speed := 250
+export var weapon_cooldown := 10
 
 var is_alive = true # this is so you can't move, rotate or shoot after you died. maybe stop process instead?
 var mobile_controls = Global.mobile_controls
+
 onready var left_joystick = get_parent().get_node("UI/JoystickLeft/Button")
 onready var right_joystick = get_parent().get_node("UI/JoystickRight/Button")
-
-#var bullet = preload("res://Player/Projectiles/Bullet.tscn")
+onready var gun1 = get_node_or_null("Gun1")
+onready var gun2 = get_node_or_null("Gun2")
+onready var gun3 = get_node_or_null("Gun3")
+onready var gun4 = get_node_or_null("Gun4")
 onready var health_bar = get_node("HealthBar")
 
 var input_vector := Vector2.ZERO
@@ -28,13 +31,20 @@ var velocity := Vector2.ZERO
 
 func _ready():
 	Global.player = self
-	health_bar.max_value = max_health
-	health_bar.value = max_health
+	#Events.emit_signal("player_health_changed", health)
+	update_variables()
+	print(health)
+	print(max_speed)
+	print(weapon_cooldown)
+	health_bar.max_value = health
+	health_bar.value = health
 	health_bar.set_as_toplevel(true)
 	
 	if not mobile_controls:
 		left_joystick.get_parent().visible = false
 		right_joystick.get_parent().visible = false
+	
+	Events.connect("power_up_applied", self, "update_variables")
 
 
 func _exit_tree():
@@ -66,15 +76,29 @@ func _process(delta):
 		look_at(get_global_mouse_position())
 		
 		if Input.is_action_pressed("LMB"):
-			var gun1 = get_node_or_null("Gun1")
+			gun1 = get_node_or_null("Gun1")
 			if gun1: gun1.fire()
 			
 	elif mobile_controls and is_alive:
 		look_at(global_position + right_joystick.get_value())
 		
 		if right_joystick.get_value() != Vector2.ZERO:
-			var gun1 = get_node_or_null("Gun1")
+			gun1 = get_node_or_null("Gun1")
 			if gun1: gun1.fire()
+
+
+func update_variables():
+	health = Global.player_health
+	max_speed = Global.player_speed
+	weapon_cooldown = Global.player_attack_cooldown
+	update_guns()
+
+
+func update_guns():
+	if gun1: gun1.cooldown = weapon_cooldown
+	if gun2: gun2.cooldown = weapon_cooldown
+	if gun3: gun3.cooldown = weapon_cooldown
+	if gun4: gun4.cooldown = weapon_cooldown
 
 
 func _on_Hurtbox_body_entered(body):
@@ -87,6 +111,7 @@ func _on_Hurtbox_body_entered(body):
 func apply_damage(amount):
 	health -= amount
 	health_bar.value = health
+	Events.emit_signal("player_health_changed", health)
 	if health <= 0:
 		health_bar.value = 0
 		on_death()

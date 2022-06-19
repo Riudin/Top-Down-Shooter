@@ -2,35 +2,24 @@ extends Node
 
 
 ### Ingame Signals
-# warning-ignore:unused_signal
-signal enemy_spawned
-# warning-ignore:unused_signal
-signal boss_spawned()
-# warning-ignore:unused_signal
-signal boss_damaged(damage)
-# warning-ignore:unused_signal
-signal enemy_killed(score)
-# warning-ignore:unused_signal
+signal enemy_spawned 
+signal boss_spawned() 
+signal boss_damaged(damage) 
+signal enemy_killed(score) 
 signal boss_killed(score)
-# warning-ignore:unused_signal
+signal player_health_changed
 signal player_died
+signal player_speed_maxed
+signal player_attack_speed_maxed
+signal player_health_maxed
 
 ### UI Signals
-## warning-ignore:unused_signal
-#signal movestick_moved   # for mobile controls
-## warning-ignore:unused_signal
-#signal attackstick_moved   # for mobile controls
-# warning-ignore:unused_signal
-signal gamescene_ready
-# warning-ignore:unused_signal
-signal game_restarted
-# warning-ignore:unused_signal
-signal game_ended
-# warning-ignore:unused_signal
-signal main_menu_new_game_pressed
-# warning-ignore:unused_signal
-signal main_menu_settings_pressed
-# warning-ignore:unused_signal
-signal main_menu_about_pressed
-# warning-ignore:unused_signal
+signal gamescene_ready 
+signal power_up_taken
+signal power_up_applied
+signal game_restarted 
+signal game_ended 
+signal main_menu_new_game_pressed 
+signal main_menu_settings_pressed 
+signal main_menu_about_pressed 
 signal settings_menu_back_pressed

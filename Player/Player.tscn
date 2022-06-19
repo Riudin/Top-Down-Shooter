@@ -11,8 +11,6 @@
 [node name="Player" type="KinematicBody2D" groups=["Player", "camera_shaker", "frame_freezer"]]
 collision_mask = 8
 script = ExtResource( 1 )
-max_health = 400
-health = 400
 
 [node name="Gun1" parent="." instance=ExtResource( 2 )]
 position = Vector2( 14, 0 )

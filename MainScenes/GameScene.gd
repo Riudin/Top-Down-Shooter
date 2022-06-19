@@ -15,9 +15,9 @@ var playtime = 0 setget , get_playtime
 
 func _ready():
 	randomize()
-# warning-ignore:return_value_discarded
+
 	Events.connect("player_died", self, "game_over")
-# warning-ignore:return_value_discarded
+
 	Events.connect("boss_killed", self, "on_victory")
 	
 	initiate_level()

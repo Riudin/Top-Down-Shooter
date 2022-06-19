@@ -38,21 +38,32 @@ rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Stage" type="Label" parent="UI/V/TopRow/H"]
+[node name="Health" type="Label" parent="UI/V/TopRow/H"]
 margin_top = 2.0
-margin_right = 47.0
+margin_right = 42.0
 margin_bottom = 18.0
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 5 )
+text = "Health: 4"
+align = 1
+valign = 1
+
+[node name="Stage" type="Label" parent="UI/V/TopRow/H"]
+margin_left = 441.0
+margin_top = 2.0
+margin_right = 488.0
+margin_bottom = 18.0
+size_flags_horizontal = 10
 custom_fonts/font = ExtResource( 5 )
 text = "Stage: n/a"
 align = 1
 valign = 1
 
 [node name="Score" type="Label" parent="UI/V/TopRow/H"]
-margin_left = 51.0
+margin_left = 492.0
 margin_top = 2.0
 margin_right = 538.0
 margin_bottom = 18.0
-size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 5 )
 text = "Score: n/a"
 align = 1

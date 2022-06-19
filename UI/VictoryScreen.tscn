@@ -1,7 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://UI/VictoryScreen.gd" type="Script" id=1]
 [ext_resource path="res://UI/Assets/Fonts/KdamThmor_10.tres" type="DynamicFont" id=2]
+[ext_resource path="res://UI/PowerUpSlots.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.105882, 0.211765, 0.101961, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 1, 1, 0, 1 )
 
 [node name="VictoryScreen" type="CanvasLayer"]
 pause_mode = 2
@@ -31,55 +40,104 @@ color = Color( 0.623529, 0.623529, 0.623529, 1 )
 [node name="V" type="VBoxContainer" parent="MarginContainer/ColorRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/separation = 20
+custom_constants/separation = 15
 
 [node name="Control" type="Control" parent="MarginContainer/ColorRect/V"]
 margin_right = 320.0
 
 [node name="Title" type="Label" parent="MarginContainer/ColorRect/V"]
-margin_top = 20.0
+margin_top = 15.0
 margin_right = 320.0
-margin_bottom = 36.0
+margin_bottom = 31.0
 custom_fonts/font = ExtResource( 2 )
 text = "Victory!"
 align = 1
 valign = 1
 
 [node name="Score" type="Label" parent="MarginContainer/ColorRect/V"]
-margin_top = 56.0
+margin_top = 46.0
 margin_right = 320.0
-margin_bottom = 72.0
+margin_bottom = 62.0
 custom_fonts/font = ExtResource( 2 )
 text = "Score: 99"
 align = 1
 
-[node name="Control3" type="Control" parent="MarginContainer/ColorRect/V"]
-margin_top = 92.0
+[node name="PowerUps" type="HBoxContainer" parent="MarginContainer/ColorRect/V"]
+margin_top = 77.0
 margin_right = 320.0
-margin_bottom = 92.0
+margin_bottom = 113.0
+script = ExtResource( 3 )
+
+[node name="Slot1" type="Panel" parent="MarginContainer/ColorRect/V/PowerUps"]
+margin_left = 34.0
+margin_right = 70.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 36, 36 )
+mouse_filter = 1
+size_flags_horizontal = 6
+custom_styles/panel = SubResource( 1 )
+
+[node name="Button" type="TextureButton" parent="MarginContainer/ColorRect/V/PowerUps/Slot1"]
+margin_right = 36.0
+margin_bottom = 36.0
+expand = true
+stretch_mode = 3
+
+[node name="Slot2" type="Panel" parent="MarginContainer/ColorRect/V/PowerUps"]
+margin_left = 142.0
+margin_right = 178.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 36, 36 )
+mouse_filter = 1
+size_flags_horizontal = 6
+custom_styles/panel = SubResource( 1 )
+
+[node name="Button" type="TextureButton" parent="MarginContainer/ColorRect/V/PowerUps/Slot2"]
+margin_right = 36.0
+margin_bottom = 36.0
+expand = true
+stretch_mode = 3
+
+[node name="Slot3" type="Panel" parent="MarginContainer/ColorRect/V/PowerUps"]
+margin_left = 250.0
+margin_right = 286.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 36, 36 )
+mouse_filter = 1
+size_flags_horizontal = 6
+custom_styles/panel = SubResource( 1 )
+
+[node name="Button" type="TextureButton" parent="MarginContainer/ColorRect/V/PowerUps/Slot3"]
+margin_right = 36.0
+margin_bottom = 36.0
+expand = true
+stretch_mode = 3
 
 [node name="RestartButton" type="Button" parent="MarginContainer/ColorRect/V"]
 margin_left = 133.0
-margin_top = 112.0
+margin_top = 128.0
 margin_right = 186.0
-margin_bottom = 134.0
+margin_bottom = 150.0
 size_flags_horizontal = 6
 custom_fonts/font = ExtResource( 2 )
 text = "Continue"
 
 [node name="BackButton" type="Button" parent="MarginContainer/ColorRect/V"]
 margin_left = 143.0
-margin_top = 154.0
+margin_top = 165.0
 margin_right = 177.0
-margin_bottom = 176.0
+margin_bottom = 187.0
 size_flags_horizontal = 6
 custom_fonts/font = ExtResource( 2 )
 text = "Back"
 
 [node name="Control2" type="Control" parent="MarginContainer/ColorRect/V"]
-margin_top = 196.0
+margin_top = 202.0
 margin_right = 320.0
-margin_bottom = 196.0
+margin_bottom = 202.0
 
+[connection signal="pressed" from="MarginContainer/ColorRect/V/PowerUps/Slot1/Button" to="MarginContainer/ColorRect/V/PowerUps" method="_on_Slot1_Button_pressed"]
+[connection signal="pressed" from="MarginContainer/ColorRect/V/PowerUps/Slot2/Button" to="MarginContainer/ColorRect/V/PowerUps" method="_on_slot2_Button_pressed"]
+[connection signal="pressed" from="MarginContainer/ColorRect/V/PowerUps/Slot3/Button" to="MarginContainer/ColorRect/V/PowerUps" method="_on_slot3_Button_pressed"]
 [connection signal="pressed" from="MarginContainer/ColorRect/V/RestartButton" to="." method="_on_RestartButton_pressed"]
 [connection signal="pressed" from="MarginContainer/ColorRect/V/BackButton" to="." method="_on_BackButton_pressed"]
