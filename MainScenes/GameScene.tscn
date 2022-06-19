@@ -113,7 +113,10 @@ text = "12/35"
 align = 1
 valign = 1
 
-[node name="MobileJoystick" parent="UI" instance=ExtResource( 2 )]
+[node name="JoystickLeft" parent="UI" instance=ExtResource( 2 )]
+
+[node name="JoystickRight" parent="UI" instance=ExtResource( 2 )]
+position = Vector2( 552, 272 )
 
 [node name="FrameFreezer" type="Node" parent="."]
 script = ExtResource( 6 )

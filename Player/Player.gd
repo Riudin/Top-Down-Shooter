@@ -13,8 +13,10 @@ export var max_health: int = 4
 export var health: int = 4
 export var max_speed := 250
 
-var is_alive = true
-var mobile_controls = true
+var is_alive = true # this is so you can't move, rotate or shoot after you died. maybe stop process instead?
+var mobile_controls = Global.mobile_controls
+onready var left_joystick = get_parent().get_node("UI/JoystickLeft/Button")
+onready var right_joystick = get_parent().get_node("UI/JoystickRight/Button")
 
 #var bullet = preload("res://Player/Projectiles/Bullet.tscn")
 onready var health_bar = get_node("HealthBar")
@@ -30,10 +32,9 @@ func _ready():
 	health_bar.value = max_health
 	health_bar.set_as_toplevel(true)
 	
-	if mobile_controls:
-# warning-ignore:return_value_discarded
-		Events.connect("movestick_moved", self, "use_move_vector")
-		Events.connect("attackstick_moved", self, "use_attack_vector")
+	if not mobile_controls:
+		left_joystick.get_parent().visible = false
+		right_joystick.get_parent().visible = false
 
 
 func _exit_tree():
@@ -44,9 +45,10 @@ func _process(delta):
 	health_bar.set_position(position - Vector2(12, 16))
 	
 	
-	#var input_vector = Vector2.ZERO
-	
-	if !mobile_controls:
+	if mobile_controls:
+		input_vector = left_joystick.get_value()
+		
+	elif not mobile_controls:
 		input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 		input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 		input_vector = input_vector.normalized()
@@ -60,28 +62,19 @@ func _process(delta):
 	if is_alive:
 		velocity = move_and_slide(velocity)
 	
-	if !mobile_controls:
-		if is_alive:
-			look_at(get_global_mouse_position())
+	if not mobile_controls and is_alive:
+		look_at(get_global_mouse_position())
 		
-#		if Input.is_action_pressed("LMB") and is_alive:
-#			var gun1 = get_node_or_null("Gun1")
-#			if gun1: gun1.fire()
-	else:
-		if is_alive:
-			look_at(global_position + attack_vector)
-		
-		if attack_vector != Vector2.ZERO and is_alive:
+		if Input.is_action_pressed("LMB"):
 			var gun1 = get_node_or_null("Gun1")
 			if gun1: gun1.fire()
-
-
-func use_move_vector(v):
-	input_vector = v
-
-
-func use_attack_vector(v):
-	attack_vector = v
+			
+	elif mobile_controls and is_alive:
+		look_at(global_position + right_joystick.get_value())
+		
+		if right_joystick.get_value() != Vector2.ZERO:
+			var gun1 = get_node_or_null("Gun1")
+			if gun1: gun1.fire()
 
 
 func _on_Hurtbox_body_entered(body):

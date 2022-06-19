@@ -8,6 +8,8 @@ var highscore = 0
 var stage = 1
 var enemies_in_stage = 0
 
+var mobile_controls = true
+
 var save_file = "user://gamedata.save"
 
 
@@ -29,6 +31,7 @@ func save_game():
 	f.open(save_file, File.WRITE)
 	
 	f.store_line(to_json(highscore))
+	f.store_line(to_json(mobile_controls))
 	
 	f.close()
 	
@@ -44,6 +47,7 @@ func load_game():
 	f.open(save_file, File.READ)
 	
 	highscore = parse_json(f.get_line())
+	mobile_controls = parse_json(f.get_line())
 	
 	f.close()
 	
